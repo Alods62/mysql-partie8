@@ -1,0 +1,37 @@
+     // AS est un alias, il est utilisé pour 'baptiser' une colonne ou expression
+ex1. SELECT `languages`.`name` AS `languageName`,`frameworks`.`name` AS `frameworkName`
+     FROM `languages`
+     // LEFT JOIN jointure externe qui prend en référence la 1ère table (celle de gauche) du FROM
+     LEFT JOIN `frameworks`
+     // on choisit les colonnes sur lesquelles la fusion doit avoir lieu (souvent les ids) 
+     ON `languages`.`id` = `frameworks`.`languagesId`;
+
+ex2. SELECT `languages`.`name`,`frameworks`.`name`
+     FROM `languages`, `frameworks`
+     WHERE `languages`.`id` = `frameworks`.`languagesId`;
+
+ou mieux
+
+     SELECT *
+     FROM `languages`
+     INNER JOIN `frameworks` ON `languages`.`id` = `frameworks`.`languagesId`;
+
+ou encore mieux 
+
+     SELECT `languages`.`name` AS `languageName`,`frameworks`.`name` AS `frameworkName`
+     FROM `languages`  
+     INNER JOIN `frameworks` ON `languages`.`id` = `frameworks`.`languagesId`;
+
+ex3. SELECT `languages`.`name` AS `languageName`, COUNT(`frameworks`.`name`) AS `frameworkNumber`
+     FROM `languages`
+     INNER JOIN `frameworks`
+     ON `languages`.`id` = `frameworks`.`languagesId`
+     GROUP BY `frameworks`.`languagesId`;
+     
+ex4. SELECT `languages`.`name` AS `languageName`, COUNT(`frameworks`.`name`) AS `frameworkNumber`
+     FROM `languages`
+     INNER JOIN `frameworks`
+     ON `languages`.`id` = `frameworks`.`languagesId`
+     GROUP BY `frameworks`.`languagesId`
+     HAVING frameworkNumber > 3;
+     
